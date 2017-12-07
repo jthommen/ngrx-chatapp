@@ -1,17 +1,19 @@
-import { Participant } from "../../shared/participant";
-import { Thread } from "../../shared/thread";
-import { Message } from "../../shared/message";
 
+
+
+import {Participant} from "../../shared/model/participant";
+import {Thread} from "../../shared/model/thread";
+import {Message} from "../../shared/model/message";
 
 
 export const dbParticipants: {[key: number]: Participant} = {
     1: {
         id: 1,
-        name: 'Juri'
+        name: 'Charlotte'
     },
     2: {
         id: 2,
-        name: 'Charlotte'
+        name: 'Juri'
     },
     3: {
         id: 3,
@@ -91,7 +93,6 @@ export const dbMessages: {[key: number]: Message} = {
         text: 'OK, no problem',
         timestamp: new Date().getTime()
     },
-
     5: {
         id: 5,
         threadId: 1,
@@ -99,7 +100,6 @@ export const dbMessages: {[key: number]: Message} = {
         text: 'Great',
         timestamp: new Date().getTime()
     },
-
     6: {
         id: 6,
         threadId: 2,
@@ -192,3 +192,17 @@ export const dbMessagesQueuePerUser: {[key: number]: number[]} = {
     5: []
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
