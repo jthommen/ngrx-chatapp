@@ -12,7 +12,7 @@ export class ThreadsService {
   // Observable of composed type that is returned by mocked API
   // TO (transfer object) is used to specify type to be returned
   loadUserThreads(): Observable<AllUserData> {
-    return this.http.get<AllUserData>('/api/threads').map(res => {return res});
+    return this.http.get<AllUserData>('/api/threads');
   }
 
 }
