@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThreadsService } from '../services/threads.service';
 
 @Component({
   selector: 'thread-section',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThreadSectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private threadsService: ThreadsService) { }
 
   ngOnInit() {
+
+      // Rest API Call to Backend to fetch data
+      this.threadsService.loadUserThreads();
+
   }
 
 }
