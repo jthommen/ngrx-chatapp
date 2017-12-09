@@ -20,6 +20,7 @@ import { LoadThreadsEffectService } from './store/effects/load-threads-effect.se
 import { INITIAL_APPLICATION_STATE } from './store/application-state';
 import { storeData } from './store/reducers/uiStoreDataReducer';
 import { uiState } from './store/reducers/uiStateReducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export const reducers = {
   uiState,
@@ -39,7 +40,8 @@ export const reducers = {
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {initialState: INITIAL_APPLICATION_STATE }),
-    EffectsModule.forRoot([LoadThreadsEffectService])
+    EffectsModule.forRoot([LoadThreadsEffectService]),
+    StoreDevtoolsModule.instrument({maxAge: 25})
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]

@@ -12,6 +12,8 @@ export class LoadThreadsEffectService {
 
   @Effect() userThreads$: Observable<Action> = this.actions$ // decorator marks observable as source of actions
     .ofType(LOAD_USER_THREADS_ACTION)
+    .debug("action received")
     .switchMap(() => this.threadsService.loadUserThreads())
+    .debug("data received via the HTTP request")
     .map(allUserData => new UserThreadsLoadedAction(allUserData));
 }
