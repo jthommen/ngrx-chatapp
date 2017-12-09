@@ -18,10 +18,11 @@ import { MessageListComponent } from './message-list/message-list.component';
 import { ThreadsService } from './services/threads.service';
 import { LoadThreadsEffectService } from './store/effects/load-threads-effect.service';
 import { INITIAL_APPLICATION_STATE } from './store/application-state';
-import { storeData } from './store/reducers/uiStoreDataReducer';
-import { uiState } from './store/reducers/uiStateReducer';
+import { storeData} from './store/reducers/StoreDataReducer';
+import { uiState} from './store/reducers/uiStateReducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+// Combined reducer
 export const reducers = {
   uiState,
   storeData
