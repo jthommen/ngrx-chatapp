@@ -7,7 +7,7 @@ import { Thread } from '../../../shared/model/thread';
 import { ThreadSummaryVM } from './thread-summary.vm';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application-state';
-import { LoadUserThreadsAction } from '../store/actions';
+import { UserThreadsLoadedAction, LoadUserThreadsAction } from '../store/actions';
 import { userNameSelector } from './userNameSelector';
 import { mapStateToUnreadMessagesCounter } from './mapStateToUnreadMessagesCounter';
 import { stateToThreadSummariesSelector } from './stateToThreadSummariesSelector';
@@ -27,9 +27,7 @@ export class ThreadSectionComponent implements OnInit {
   unreadMessagesCounter$: Observable<number>;
   threadSummaries$: Observable<ThreadSummaryVM[]>;
 
-  constructor(
-    private threadsService: ThreadsService,
-    private store: Store<ApplicationState>) { // Store injected
+  constructor(private store: Store<ApplicationState>) { // Store injected
 
       // Mapping application state to the view model with selector functions
       this.userName$ = store
@@ -43,12 +41,7 @@ export class ThreadSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
-      // Rest API Call to Backend to fetch data
-      this.threadsService.loadUserThreads().subscribe(
-        allUserData => this.store.dispatch(new LoadUserThreadsAction(allUserData))
-      );
-
+    this.store.dispatch(new LoadUserThreadsAction());
   }
 
 }

@@ -1,6 +1,6 @@
 import { StoreData } from "../store-data";
 import { Action } from "@ngrx/store";
-import { LOAD_USER_THREADS_ACTION, LoadUserThreadsAction } from "../actions";
+import { USER_THREADS_LOADED_ACTION, UserThreadsLoadedAction } from "../actions";
 import { ApplicationState } from "../application-state";
 import * as _ from "lodash";
 
@@ -8,7 +8,7 @@ import * as _ from "lodash";
 export function storeData(state: StoreData, action: Action) : StoreData {
 
     switch(action.type) {
-        case LOAD_USER_THREADS_ACTION:
+        case USER_THREADS_LOADED_ACTION:
           return handleLoadUserThreadsAction(state, <any>action);
       
       default:
@@ -18,7 +18,7 @@ export function storeData(state: StoreData, action: Action) : StoreData {
 
 }
 
-function handleLoadUserThreadsAction(state: StoreData, action: LoadUserThreadsAction) {
+function handleLoadUserThreadsAction(state: StoreData, action: UserThreadsLoadedAction) {
     return {
         participants: _.keyBy(action.payload.participants, 'id'),
         messages: _.keyBy(action.payload.messages, 'id'),
