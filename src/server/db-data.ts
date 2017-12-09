@@ -9,11 +9,11 @@ import {Message} from "../../shared/model/message";
 export const dbParticipants: {[key: number]: Participant} = {
     1: {
         id: 1,
-        name: 'Charlotte'
+        name: 'Juri'
     },
     2: {
         id: 2,
-        name: 'Juri'
+        name: 'Charlotte'
     },
     3: {
         id: 3,
