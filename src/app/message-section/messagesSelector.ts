@@ -5,7 +5,6 @@ import { Message } from "../../../shared/model/message";
 
 export function messagesSelector(state:ApplicationState): MessageVM[] {
     const currentThreadId = state.uiState.currentThreadId;
-    console.log('Current Thread Id: ' + currentThreadId);
 
     if(!currentThreadId){
         return [];
