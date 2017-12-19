@@ -1,13 +1,13 @@
 // Smart component for the thread section
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ThreadsService } from '../services/threads.service';
 import { Thread } from '../../../shared/model/thread';
 import { ThreadSummaryVM } from './thread-summary.vm';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application-state';
-import { UserThreadsLoadedAction, LoadUserThreadsAction, ThreadSelectedAction } from '../store/actions';
+import { ThreadSelectedAction } from '../store/actions';
 import { userNameSelector } from './userNameSelector';
 import { mapStateToUnreadMessagesCounter } from './mapStateToUnreadMessagesCounter';
 import { stateToThreadSummariesSelector } from './stateToThreadSummariesSelector';
@@ -20,7 +20,7 @@ import * as _ from "lodash";
   templateUrl: './thread-section.component.html',
   styleUrls: ['./thread-section.component.css']
 })
-export class ThreadSectionComponent implements OnInit {
+export class ThreadSectionComponent {
 
   // Observables our template subscribes to with async pipe
   userName$: Observable<string>;
@@ -42,10 +42,6 @@ export class ThreadSectionComponent implements OnInit {
 
       this.currentSelectedThreadId$ = store
         .select(state =>  state.uiState.currentThreadId);
-  }
-
-  ngOnInit() {
-    this.store.dispatch(new LoadUserThreadsAction());
   }
 
   onThreadSelected(selectedThreadId: number){
