@@ -21,6 +21,7 @@ import { INITIAL_APPLICATION_STATE } from './store/application-state';
 import { storeData} from './store/reducers/StoreDataReducer';
 import { uiState} from './store/reducers/uiStateReducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MessageItemComponent } from './message-item/message-item.component';
 
 // Combined reducer
 export const reducers = {
@@ -35,7 +36,8 @@ export const reducers = {
     ThreadSectionComponent,
     MessageSectionComponent,
     ThreadListComponent,
-    MessageListComponent
+    MessageListComponent,
+    MessageItemComponent
   ],
   imports: [
     BrowserModule,
