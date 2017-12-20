@@ -23,6 +23,7 @@ import { uiState} from './store/reducers/uiStateReducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MessageItemComponent } from './message-item/message-item.component';
 import { WriteNewMessageEffectService } from './store/effects/write-new-message-effect.service';
+import { ServerNotificationsEffectService } from './store/effects/server-notifications-effect.service';
 
 // Combined reducer
 export const reducers = {
@@ -44,7 +45,10 @@ export const reducers = {
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, {initialState: INITIAL_APPLICATION_STATE }),
-    EffectsModule.forRoot([LoadThreadsEffectService, WriteNewMessageEffectService]),
+    EffectsModule.forRoot([
+      LoadThreadsEffectService,
+      WriteNewMessageEffectService,
+      ServerNotificationsEffectService]),
     StoreDevtoolsModule.instrument({maxAge: 25})
   ],
   providers: [ThreadsService],

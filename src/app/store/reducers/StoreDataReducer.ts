@@ -4,7 +4,9 @@ import {
     USER_THREADS_LOADED_ACTION,
     UserThreadsLoadedAction,
     SEND_NEW_MESSAGE_ACTION,
-    SendNewMessageAction } from "../actions";
+    SendNewMessageAction, 
+    NEW_MESSAGES_RECEIVED_ACTION,
+    NewMessagesReceivedAction} from "../actions";
 import { ApplicationState } from "../application-state";
 import * as _ from "lodash";
 import { Message } from "../../../../shared/model/message";
@@ -20,6 +22,9 @@ export function storeData(state: StoreData, action: Action) : StoreData {
 
         case SEND_NEW_MESSAGE_ACTION:
           return handleSendNewMessageAction(state, <any>action);
+
+        case NEW_MESSAGES_RECEIVED_ACTION:
+            return handleNewMessageReceivedAction(state, <any>action);
       
       default:
         return state;
@@ -52,6 +57,18 @@ function handleSendNewMessageAction(state: StoreData, action: SendNewMessageActi
     newStoreState.threads[currentThread.id].messageIds.push(newMessage.id); // Add to threads in store
 
     newStoreState.messages[newMessage.id] = newMessage; // Add messages in store
+
+    return newStoreState;
+}
+
+function handleNewMessageReceivedAction(state: StoreData, action: NewMessagesReceivedAction) {
+    const newStoreState = _.cloneDeep(state);
+    const newMessages = action.payload;
+    
+    newMessages.forEach(message => {
+        newStoreState.messages[message.id] = message;
+        newStoreState.threads[message.threadId].messageIds.push(message.id);
+    });
 
     return newStoreState;
 }
