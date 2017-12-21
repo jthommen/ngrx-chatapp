@@ -5,6 +5,7 @@ import { Effect } from "@ngrx/effects";
 import { NewMessagesReceivedAction } from "../actions";
 import { ApplicationState } from "../application-state";
 import { Store } from "@ngrx/store";
+import { uiState } from "../reducers/uiStateReducer";
 
 @Injectable()
 export class ServerNotificationsEffectService {
@@ -20,5 +21,10 @@ export class ServerNotificationsEffectService {
         .switchMap(uiState => this.threadsService.loadNewMessagesForUser(uiState.userId))
         .filter((messages) => messages.length > 0)
         .debug('new messages for user from server')
-        .map(messages => new NewMessagesReceivedAction(messages));
+        .withLatestFrom(this.store.select('uiState'))
+        .map(([messages,uiState]) => new NewMessagesReceivedAction({
+            unreadMessages:messages,
+            currentThreadId: uiState.currentThreadId,
+            currentUserId: uiState.userId
+        }));
 }

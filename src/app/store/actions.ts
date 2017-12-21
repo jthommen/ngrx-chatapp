@@ -42,12 +42,18 @@ export class SendNewMessageAction implements Action {
 export class NewMessagesReceivedAction implements Action {
     readonly type = NEW_MESSAGES_RECEIVED_ACTION;
 
-    constructor(public payload?: Message[]) {}
+    constructor(public payload?: NewMessagesReceivedActionPayload) {}
 }
 
-// Payload custom type for new messages
+// Payload custom types for new messages/messages received
 export interface SendNewMessageActionPayload {
     text: string;
     threadId: number;
     participantId: number;
+}
+
+export interface NewMessagesReceivedActionPayload {
+    unreadMessages: Message[];
+    currentThreadId: number;
+    currentUserId: number;
 }
