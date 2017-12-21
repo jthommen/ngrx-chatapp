@@ -24,6 +24,7 @@ function mapThreadToThreadSummary(state: ApplicationState, thread: Thread): Thre
     id: thread.id,
       participantNames: _.join(names, ","), // produce list of participant names, separated by comma as a big string
       lastMessageText: state.storeData.messages[lastMessageId].text,
-      timestamp: lastMessage.timestamp
+      timestamp: lastMessage.timestamp,
+      read: thread.id === state.uiState.currentThreadId || thread.participants[state.uiState.userId] === 0
     }
 }

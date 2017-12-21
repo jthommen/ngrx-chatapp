@@ -24,6 +24,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MessageItemComponent } from './message-item/message-item.component';
 import { WriteNewMessageEffectService } from './store/effects/write-new-message-effect.service';
 import { ServerNotificationsEffectService } from './store/effects/server-notifications-effect.service';
+import { MarkMessageAsReadEffectService } from './store/effects/mark-message-as-read-effect.service';
 
 // Combined reducer
 export const reducers = {
@@ -48,7 +49,8 @@ export const reducers = {
     EffectsModule.forRoot([
       LoadThreadsEffectService,
       WriteNewMessageEffectService,
-      ServerNotificationsEffectService]),
+      ServerNotificationsEffectService,
+      MarkMessageAsReadEffectService]),
     StoreDevtoolsModule.instrument({maxAge: 25})
   ],
   providers: [ThreadsService],

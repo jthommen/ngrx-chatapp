@@ -24,7 +24,7 @@ export class UserThreadsLoadedAction implements Action {
 export class ThreadSelectedAction implements Action {
     readonly type = THREAD_SELECTED_ACTION;
 
-    constructor(public payload: number){}
+    constructor(public payload?: ThreadSelectedActionPayload){}
 }
 
 export class SelectUserAction implements Action {
@@ -55,5 +55,10 @@ export interface SendNewMessageActionPayload {
 export interface NewMessagesReceivedActionPayload {
     unreadMessages: Message[];
     currentThreadId: number;
+    currentUserId: number;
+}
+
+export interface ThreadSelectedActionPayload {
+    selectedThreadId: number;
     currentUserId: number;
 }

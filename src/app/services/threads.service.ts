@@ -32,4 +32,8 @@ export class ThreadsService {
     .map(res => res.payload);
   }
 
+  markMessagesAsRead(userId: number, threadId: number):Observable<any>{
+    return this.http.patch<any>(`/api/threads/${threadId}`, {read: true}, commonHttpHeaders(userId))    
+  }
+
 }

@@ -5,6 +5,7 @@ import { Application } from 'express';
 import { apiGetUserThreads } from "./api/apiGetUserThreads";
 import { apiSaveNewMessage } from './api/apiSaveNewMesssage';
 import { apiMessageNotificationsPerUser } from './api/apiMessageNotificationsPerUser'
+import { apiMarkThreadAsReadByUser } from './api/apiMarkThreadAsReadByUser';
 const bodyParser = require('body-parser');
 
 const app: Application = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 apiGetUserThreads(app);
 apiSaveNewMessage(app);
 apiMessageNotificationsPerUser(app);
+apiMarkThreadAsReadByUser(app);
 
 
 app.listen(8090, () => {

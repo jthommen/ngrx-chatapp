@@ -14,6 +14,7 @@ import { stateToThreadSummariesSelector } from './stateToThreadSummariesSelector
 
 import { Observable } from 'rxjs';
 import * as _ from "lodash";
+import { UiState } from '../store/ui-state';
 
 @Component({
   selector: 'thread-section',
@@ -26,7 +27,7 @@ export class ThreadSectionComponent {
   userName$: Observable<string>;
   unreadMessagesCounter$: Observable<number>;
   threadSummaries$: Observable<ThreadSummaryVM[]>;
-  currentSelectedThreadId$:Observable<number>;
+  uiState:UiState;  
 
   constructor(private store: Store<ApplicationState>) { // Store injected
 
@@ -40,12 +41,11 @@ export class ThreadSectionComponent {
       this.threadSummaries$ = store
         .select(stateToThreadSummariesSelector);
 
-      this.currentSelectedThreadId$ = store
-        .select(state =>  state.uiState.currentThreadId);
+      store.select(state => state.uiState).subscribe(uiState => this.uiState = _.cloneDeep(uiState));
   }
 
   onThreadSelected(selectedThreadId: number){
-    this.store.dispatch(new ThreadSelectedAction(selectedThreadId));
+    this.store.dispatch(new ThreadSelectedAction({selectedThreadId, currentUserId:this.uiState.userId}));
   }
 
 }

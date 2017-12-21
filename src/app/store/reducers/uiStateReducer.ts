@@ -24,7 +24,7 @@ export function uiState(state: UiState = INITIAL_UI_STATE, action: any) : UiStat
 // Handler functions to generate the new states
 function handleThreadSelectedAction(state: UiState, action: ThreadSelectedAction){
     const newUiState = Object.assign({}, state);
-    newUiState.currentThreadId = action.payload;
+    newUiState.currentThreadId = action.payload.selectedThreadId;
 
     return newUiState;
 }

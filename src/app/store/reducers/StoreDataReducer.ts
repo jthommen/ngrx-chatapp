@@ -6,7 +6,9 @@ import {
     SEND_NEW_MESSAGE_ACTION,
     SendNewMessageAction, 
     NEW_MESSAGES_RECEIVED_ACTION,
-    NewMessagesReceivedAction} from "../actions";
+    NewMessagesReceivedAction,
+    THREAD_SELECTED_ACTION,
+    ThreadSelectedAction} from "../actions";
 import { ApplicationState } from "../application-state";
 import * as _ from "lodash";
 import { Message } from "../../../../shared/model/message";
@@ -25,6 +27,9 @@ export function storeData(state: StoreData, action: Action) : StoreData {
 
         case NEW_MESSAGES_RECEIVED_ACTION:
             return handleNewMessageReceivedAction(state, <any>action);
+
+        case THREAD_SELECTED_ACTION:
+            return handleThreadSelectedAction(state, <any>action);
       
       default:
         return state;
@@ -76,6 +81,17 @@ function handleNewMessageReceivedAction(state: StoreData, action: NewMessagesRec
             newStoreState.threads[message.threadId].participants[currentUserId] += 1;
         }
     });
+
+    return newStoreState;
+}
+
+function handleThreadSelectedAction(state: StoreData, action: ThreadSelectedAction){
+    const newStoreState = _.cloneDeep(state);
+    const currentThread = newStoreState.threads[action.payload.selectedThreadId];
+
+    
+    // Set unread messages of current user for selected thread to zero
+    currentThread.participants[action.payload.currentUserId] = 0;
 
     return newStoreState;
 }
