@@ -4,7 +4,10 @@ import {
     THREAD_SELECTED_ACTION, 
     SELECT_USER_ACTION, 
     ThreadSelectedAction, 
-    SelectUserAction } from "../actions";
+    SelectUserAction, 
+    ERROR_OCCURED_ACTION,
+    ErrorOccuredAction} from "../actions";
+import * as _ from "lodash";
 
 export function uiState(state: UiState = INITIAL_UI_STATE, action: any) : UiState {
 
@@ -15,6 +18,9 @@ export function uiState(state: UiState = INITIAL_UI_STATE, action: any) : UiStat
 
         case SELECT_USER_ACTION:
             return handleSelectUserAction(state, action);
+
+        case ERROR_OCCURED_ACTION:
+            return handleErrorOccuredAction(state, action);
             
         default:
             return state;
@@ -33,6 +39,13 @@ function handleSelectUserAction(state: UiState, action: SelectUserAction){
     const newUiState = Object.assign({}, state);
     newUiState.userId = action.payload;
     newUiState.currentThreadId = undefined;
+
+    return newUiState;
+}
+
+function handleErrorOccuredAction(state: UiState, action: ErrorOccuredAction){
+    const newUiState = _.cloneDeep(state);
+    newUiState.currentError = action.payload;
 
     return newUiState;
 }

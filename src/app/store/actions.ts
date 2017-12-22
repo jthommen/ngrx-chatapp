@@ -8,6 +8,7 @@ export const THREAD_SELECTED_ACTION = 'THREAD_SELECTED_ACTION';
 export const SELECT_USER_ACTION = 'SELECT_USER_ACTION';
 export const SEND_NEW_MESSAGE_ACTION = 'SEND_NEW_MESSAGE_ACTION';
 export const NEW_MESSAGES_RECEIVED_ACTION = 'NEW_MESSAGES_RECEIVED_ACTION';
+export const ERROR_OCCURED_ACTION = 'ERROR_OCCURED_ACTION';
 
 export class LoadUserThreadsAction implements Action{
     readonly type = LOAD_USER_THREADS_ACTION;
@@ -43,6 +44,12 @@ export class NewMessagesReceivedAction implements Action {
     readonly type = NEW_MESSAGES_RECEIVED_ACTION;
 
     constructor(public payload?: NewMessagesReceivedActionPayload) {}
+}
+
+export class ErrorOccuredAction implements Action {
+    readonly type = ERROR_OCCURED_ACTION;
+
+    constructor(public payload?: string){}
 }
 
 // Payload custom types for new messages/messages received

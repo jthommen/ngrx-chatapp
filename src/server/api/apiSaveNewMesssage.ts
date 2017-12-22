@@ -12,7 +12,6 @@ export function apiSaveNewMessage(app: Application){
         
         // Extract information from request body, params & headers
         const payload = req.body;
-
         const threadId = parseInt(req.params.id);
         const participantId = parseInt(req.headers['userid']);
 

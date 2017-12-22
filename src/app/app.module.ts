@@ -25,6 +25,7 @@ import { MessageItemComponent } from './message-item/message-item.component';
 import { WriteNewMessageEffectService } from './store/effects/write-new-message-effect.service';
 import { ServerNotificationsEffectService } from './store/effects/server-notifications-effect.service';
 import { MarkMessageAsReadEffectService } from './store/effects/mark-message-as-read-effect.service';
+import { MessagesComponent } from './messages/messages.component';
 
 // Combined reducer
 export const reducers = {
@@ -40,7 +41,8 @@ export const reducers = {
     MessageSectionComponent,
     ThreadListComponent,
     MessageListComponent,
-    MessageItemComponent
+    MessageItemComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

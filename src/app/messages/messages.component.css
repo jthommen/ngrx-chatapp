@@ -1,0 +1,12 @@
+.messages-frame {
+    margin-top: -40px;
+}
+
+.messages {
+    padding: 15px;
+}
+
+.close {
+    float: right;
+    margin-right: 40px;
+}
