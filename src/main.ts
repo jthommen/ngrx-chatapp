@@ -4,6 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/catch";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
@@ -11,9 +12,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
+
 import "rxjs/add/observable/interval";
 import "rxjs/add/observable/of";
-import { Observable } from 'rxjs/Observable';
 
 // RxJS Debugging utility based on do operator
 const debuggerOn = true;

@@ -26,12 +26,15 @@ import { WriteNewMessageEffectService } from './store/effects/write-new-message-
 import { ServerNotificationsEffectService } from './store/effects/server-notifications-effect.service';
 import { MarkMessageAsReadEffectService } from './store/effects/mark-message-as-read-effect.service';
 import { MessagesComponent } from './messages/messages.component';
+import { storeFreeze } from 'ngrx-store-freeze';
 
-// Combined reducer
+// Combined reducer & ngrx-storefreeze metareducer
 export const reducers = {
   uiState,
   storeData
 };
+
+export const metaReducers = [storeFreeze];
 
 @NgModule({
   declarations: [

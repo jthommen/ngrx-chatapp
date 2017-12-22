@@ -29,14 +29,14 @@ export function uiState(state: UiState = INITIAL_UI_STATE, action: any) : UiStat
 
 // Handler functions to generate the new states
 function handleThreadSelectedAction(state: UiState, action: ThreadSelectedAction){
-    const newUiState = Object.assign({}, state);
+    const newUiState = _.cloneDeep(state);
     newUiState.currentThreadId = action.payload.selectedThreadId;
 
     return newUiState;
 }
 
 function handleSelectUserAction(state: UiState, action: SelectUserAction){
-    const newUiState = Object.assign({}, state);
+    const newUiState = _.cloneDeep(state);
     newUiState.userId = action.payload;
     newUiState.currentThreadId = undefined;
 

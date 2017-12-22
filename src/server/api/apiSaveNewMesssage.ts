@@ -23,6 +23,8 @@ export function apiSaveNewMessage(app: Application){
             participantId
         };
 
+        console.log(message);
+        
         // save the message, already linked to the thread
         dbMessages[message.id] = message;
 
