@@ -49,8 +49,23 @@ function handleLoadUserThreadsAction(state: StoreData, action: UserThreadsLoaded
 }
 
 function handleSendNewMessageAction(state: StoreData, action: SendNewMessageAction){
-    const newStoreState = _.cloneDeep(state); // copies state without referencing to previous state
-    const currentThread = state.threads[action.payload.threadId];
+    
+    // Optimize for onPush changeDetection
+    // Pointing to non-modified data by reference
+    // copying modified data onto new object.
+    // Leads to performance improvements for Angular change detection using OnPush
+    
+    const newStoreState: StoreData = {
+        participants: state.participants,
+        threads: Object.assign({}, state.threads),
+        messages: Object.assign({}, state.messages)
+    };
+
+    // Create copy of current Thread
+    newStoreState.threads[action.payload.threadId] = Object.assign({}, state.threads[action.payload.threadId]);
+
+    const currentThread = newStoreState.threads[action.payload.threadId];
+
     const newMessage: Message = {
         id: uuid(),
         text: action.payload.text,
@@ -59,7 +74,8 @@ function handleSendNewMessageAction(state: StoreData, action: SendNewMessageActi
         participantId: action.payload.participantId,
     };
 
-    newStoreState.threads[currentThread.id].messageIds.push(newMessage.id); // Add to threads in store
+    currentThread.messageIds = currentThread.messageIds.slice(0); // Copy of messages before modifying them
+    currentThread.messageIds.push(newMessage.id);
 
     newStoreState.messages[newMessage.id] = newMessage; // Add messages in store
 
@@ -67,18 +83,34 @@ function handleSendNewMessageAction(state: StoreData, action: SendNewMessageActi
 }
 
 function handleNewMessageReceivedAction(state: StoreData, action: NewMessagesReceivedAction) {
-    const newStoreState = _.cloneDeep(state);
+
+    const newStoreState: StoreData = {
+        participants: state.participants,
+        threads: _.clone(state.threads),
+        messages: _.clone(state.messages)
+    };
+
     const newMessages = action.payload.unreadMessages;
     const currentThreadId = action.payload.currentThreadId;
     const currentUserId = action.payload.currentUserId;
     
     newMessages.forEach(message => {
         newStoreState.messages[message.id] = message;
-        newStoreState.threads[message.threadId].messageIds.push(message.id);
+
+        // Create new object by reference
+        newStoreState.threads[message.threadId] = _.clone(state.threads[message.threadId]);
+        const messageThread = newStoreState.threads[message.threadId];
+
+        // Copy changed object by value
+        messageThread.messageIds = _.clone(messageThread.messageIds);
+        
+        // Adding new message id to copied object
+        messageThread.messageIds.push(message.id);
 
         // Populate unread messages counter
         if(message.threadId !== currentThreadId){
-            newStoreState.threads[message.threadId].participants[currentUserId] += 1;
+            messageThread.participants = _.clone(newStoreState.threads[message.threadId].participants);
+            messageThread.participants[currentUserId] += 1;
         }
     });
 
@@ -86,12 +118,21 @@ function handleNewMessageReceivedAction(state: StoreData, action: NewMessagesRec
 }
 
 function handleThreadSelectedAction(state: StoreData, action: ThreadSelectedAction){
-    const newStoreState = _.cloneDeep(state);
+
+    const newStoreState: StoreData = {
+        participants: _.clone(state.participants),
+        threads: _.clone(state.threads),
+        messages: _.clone(state.messages)
+    };
+
+    newStoreState.threads[action.payload.selectedThreadId] = _.clone(state.threads[action.payload.selectedThreadId]);
+
     const currentThread = newStoreState.threads[action.payload.selectedThreadId];
 
-    
+    currentThread.participants = _.clone(currentThread.participants);
+
     // Set unread messages of current user for selected thread to zero
     currentThread.participants[action.payload.currentUserId] = 0;
-
+    
     return newStoreState;
 }

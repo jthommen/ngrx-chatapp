@@ -19,7 +19,7 @@ import { UiState } from '../store/ui-state';
 @Component({
   selector: 'thread-section',
   templateUrl: './thread-section.component.html',
-  styleUrls: ['./thread-section.component.css']
+  styleUrls: ['./thread-section.component.css'],
 })
 export class ThreadSectionComponent {
 
