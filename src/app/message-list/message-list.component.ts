@@ -26,14 +26,14 @@ export class MessageListComponent implements OnChanges {
   @ViewChild('list')
   list: ElementRef;
 
-  constructor() { }
-
   ngOnChanges(changes: SimpleChanges) {
-      if(changes['messages'] && changes['messages'].currentValue.length !== 0) {
+      if(changes['messages'] 
+      //&& changes['messages'].currentValue.length !== 0
+    ) {
         const previousMessages = changes['messages'].previousValue;
         const newMessages = changes['messages'].currentValue;
 
-        if(newMessages.length > previousMessages.length){
+        if(previousMessages && newMessages.length > previousMessages.length){
           setTimeout(() => { // Workaround to let angular render the new message before putting it into view
             this.scrollLastMessageIntoView();
           });

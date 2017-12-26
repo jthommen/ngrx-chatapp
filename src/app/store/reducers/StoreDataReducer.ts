@@ -98,7 +98,8 @@ function handleNewMessageReceivedAction(state: StoreData, action: NewMessagesRec
         newStoreState.messages[message.id] = message;
 
         // Create new object by reference
-        newStoreState.threads[message.threadId] = _.clone(state.threads[message.threadId]);
+        newStoreState.threads[message.threadId] = _.clone(newStoreState.threads[message.threadId]);
+        
         const messageThread = newStoreState.threads[message.threadId];
 
         // Copy changed object by value

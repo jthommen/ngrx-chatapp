@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AllUserData } from '../../../shared/to/all-user-data';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/add/operator/map';
 import { SendNewMessageActionPayload } from '../store/actions';
 import { commonHttpHeaders } from './commonHttpHeaders';
 import { Message } from '../../../shared/model/message';
