@@ -4,7 +4,7 @@ export function commonHttpHeaders(userId:number) {
     const headers =  new HttpHeaders(
       {
         'UserID': userId.toString(),
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json; charset=utf-8'
       }
     );
 

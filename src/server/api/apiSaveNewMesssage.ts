@@ -13,7 +13,7 @@ export function apiSaveNewMessage(app: Application){
         // Extract information from request body, params & headers
         const payload = req.body;
         const threadId = parseInt(req.params.id);
-        const participantId = parseInt(req.headers['userid']);
+        const participantId = parseInt(req.headers['userid'].toString());
 
         const message: Message = {
             id: messageCounter++,
@@ -22,8 +22,6 @@ export function apiSaveNewMessage(app: Application){
             text: payload.text,
             participantId
         };
-
-        console.log(message);
         
         // save the message, already linked to the thread
         dbMessages[message.id] = message;

@@ -10,7 +10,8 @@ export function apiGetUserThreads(app:Application) {
 
     app.route('/api/threads').get((req: Request, res: Response) => {
 
-        const participantId = parseInt(req.headers['userid']);
+
+        const participantId = parseInt(req.headers['userid'].toString());
 
         const threadsPerUser = findDbThreadsPerUser(participantId);
 
@@ -30,8 +31,8 @@ export function apiGetUserThreads(app:Application) {
         const participants = _.uniq(participantIds.map(participantId => dbParticipants[participantId]));
 
         const response: AllUserData = {
-          participants,
-          messages,
+            participants,
+            messages,
             threads: threadsPerUser
         };
 
